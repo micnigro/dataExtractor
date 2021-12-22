@@ -1,0 +1,29 @@
+<configuration>
+	<springProperty scope="context" name="log.level" source="log.level" />
+	<springProperty scope="context" name="LOG_HOME" source="log.home" />
+	<springProperty scope="context" name="LOG_FILE" source="log.file" />
+	<appender name="STDOUT"
+		class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>
+				%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n
+			</pattern>
+		</encoder>
+	</appender>
+
+	<appender name="SAVE-TO-FILE"
+		class="ch.qos.logback.core.FileAppender">
+		<file>${LOG_HOME}/${LOG_FILE}.log</file>
+		<encoder
+			class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+			<Pattern>
+				%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n
+			</Pattern>
+		</encoder>
+	</appender>
+
+	<root level="INFO">
+		<appender-ref ref="STDOUT" />
+		<appender-ref ref="SAVE-TO-FILE" />
+	</root>
+</configuration>
